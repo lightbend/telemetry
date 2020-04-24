@@ -53,8 +53,10 @@ object Cinnamon extends AutoPlugin {
     val cinnamon = settingKey[Boolean]("Whether cinnamon is enabled in different scopes.")
     val cinnamonLogLevel = settingKey[String]("Log level for cinnamon agent (passed via arguments).")
     val cinnamonArguments = settingKey[String]("Arguments to pass to the cinnamon agent.")
-    val cinnamonMuteMissingRepoWarning = settingKey[Boolean]("Mute the warning about missing commercial repo. Unmuted unless set explicitly.")
+    val cinnamonMuteMissingRepoWarning = settingKey[Boolean]("DEPRECATED: Mute the warning about missing commercial repo. Use: cinnamonSuppressRepoWarnings instead.")
+    val cinnamonSuppressRepoWarnings = settingKey[Boolean]("Suppress warnings related to commercial repository detection? Defaults to false.")
     val cinnamonMissingRepoWarningShown = settingKey[AtomicBoolean]("Whether the warning about missing commercial repo has been shown already.")
+    val cinnamonMissingAuthRepoWarningShown = settingKey[AtomicBoolean]("Whether the warning about new commercial repo auth scheme usage has been shown already.")
   }
 
   // Copy of sbt-native-packager dist for agent scoping.
@@ -73,25 +75,64 @@ object Cinnamon extends AutoPlugin {
   val resolver = CinnamonResolver
 
   override def buildSettings = Seq(
-    cinnamonMissingRepoWarningShown := new AtomicBoolean(false)
+    cinnamonMissingRepoWarningShown := new AtomicBoolean(false),
+    cinnamonMissingAuthRepoWarningShown := new AtomicBoolean(false)
   )
+
+  private def isLightbendResolver(repository: String): Boolean =
+    repository.contains("lightbend") && repository.contains("commercial-releases")
+
+  private def isAuthedLightbendResolver(repository: String): Boolean =
+    isLightbendResolver(repository) && repository.contains("/pass/")
 
   override def projectSettings = Seq(
     fullResolvers := {
-      val resolvers = fullResolvers.value
-      val lightbendMavenResolver = resolvers collect {
-        case repo: MavenRepository if repo.root.contains("lightbend") && repo.root.contains("commercial-releases") => repo
+      def warnBanner(lines: String*): Unit = {
+        val delim = "* "
+        def line(n: Int): String = delim * n
+
+        val log = streams.value.log
+        val repeat = (Math.ceil(lines.map(_.length).max / delim.length.doubleValue()) + 2).intValue()
+
+        log.warn(s"${line(repeat)}\n${lines.map(l => s"$delim$l").mkString("\n")}\n${line(repeat)}")
       }
-      val muted = cinnamonMuteMissingRepoWarning.?.value.getOrElse(false)
-      val show = lightbendMavenResolver.isEmpty && !muted
-      val log = streams.value.log
-      val targetDirectory = target.value
-      val shown = (cinnamonMissingRepoWarningShown in ThisBuild).value
-      if (show && shown.compareAndSet(false, true)) {
-        log.warn(("* " * 50) + "\n" +
-          "* Lightbend commercial resolver is missing. See the Lightbend Telemetry migration guide for details:\n" +
-          "* https://developer.lightbend.com/docs/telemetry/2.13.x/project/migration.html\n" +
-          ("* " * 50)
+
+      val resolvers = fullResolvers.value
+
+      val lightbendMavenRepo = resolvers collect {
+        case repo: MavenRepository if isLightbendResolver(repo.root) => repo
+      }
+
+      val lightbendAuthedMavenRepo = lightbendMavenRepo collect {
+        case repo: MavenRepository if isAuthedLightbendResolver(repo.root) => repo
+      }
+
+      if (cinnamonMuteMissingRepoWarning.?.value.getOrElse(false)) {
+        warnBanner("Cinnamon sbt setting 'cinnamonMuteMissingRepoWarning' is specified but DEPRECATED, please specify cinnamonSuppressRepoWarnings instead.")
+      }
+
+      val suppressWarnings = cinnamonMuteMissingRepoWarning.?.value.getOrElse(false) || cinnamonSuppressRepoWarnings.?.value.getOrElse(false)
+
+      val showRepoMissing = lightbendMavenRepo.isEmpty && !suppressWarnings
+      val showAuthedRepoMissing = lightbendAuthedMavenRepo.isEmpty && !suppressWarnings
+
+      val missingWarningShown = (cinnamonMissingRepoWarningShown in ThisBuild).value
+      if (showRepoMissing && missingWarningShown.compareAndSet(false, true)) {
+        warnBanner(
+          "Lightbend commercial resolver is missing.",
+          "",
+          "Please refer to the Lightbend Telemetry migration guide for details:",
+          "  https://developer.lightbend.com/docs/telemetry/2.14.x/project/migration.html"
+        )
+      }
+
+      val missingAuthWarningShown = (cinnamonMissingAuthRepoWarningShown in ThisBuild).value
+      if (showAuthedRepoMissing && !missingWarningShown.get() && missingAuthWarningShown.compareAndSet(false, true)) {
+        warnBanner(
+          "Lightbend commercial resolver does not use new URL-based credential mechanism.",
+          "",
+          "Please refer to the Lightbend Telemetry migration guide for details:",
+          "  https://developer.lightbend.com/docs/telemetry/2.14.x/project/migration.html"
         )
       }
       fullResolvers.value

@@ -4,7 +4,7 @@ import sbt._
 
 object CinnamonLibrary extends Dynamic {
   val cinnamonOrganization: String = "com.lightbend.cinnamon"
-  val cinnamonVersion: String = "2.14.0-20200131-c0a5b1223"
+  val cinnamonVersion: String = "2.14.0"
 
   def apply(name: String, cross: Boolean = true): ModuleID = {
     cinnamonOrganization % name % cinnamonVersion cross SbtCrossVersion(cross)
@@ -13,6 +13,8 @@ object CinnamonLibrary extends Dynamic {
   val cinnamonAgent: ModuleID = apply("cinnamon-agent", cross = false)
   val cinnamonAgentCommon: ModuleID = apply("cinnamon-agent-common", cross = false)
   val cinnamonAkka: ModuleID = apply("cinnamon-akka", cross = true)
+  val cinnamonAkkaCluster: ModuleID = apply("cinnamon-akka-cluster", cross = true)
+  val cinnamonAkkaClusterSPI: ModuleID = apply("cinnamon-akka-cluster-spi", cross = false)
   val cinnamonAkkaHttp: ModuleID = apply("cinnamon-akka-http", cross = true)
   val cinnamonAkkaHttpSPI: ModuleID = apply("cinnamon-akka-http-spi", cross = false)
   val cinnamonAkkaPersistence: ModuleID = apply("cinnamon-akka-persistence", cross = true)
@@ -21,6 +23,7 @@ object CinnamonLibrary extends Dynamic {
   val cinnamonAkkaStream: ModuleID = apply("cinnamon-akka-stream", cross = true)
   val cinnamonAkkaStreamSPI: ModuleID = apply("cinnamon-akka-stream-spi", cross = false)
   val cinnamonAkkaTyped: ModuleID = apply("cinnamon-akka-typed", cross = true)
+  val cinnamonAlpakkaKafkaSPI: ModuleID = apply("cinnamon-alpakka-kafka-spi", cross = false)
   val cinnamonCHMetrics: ModuleID = apply("cinnamon-chmetrics", cross = false)
   val cinnamonCHMetrics3: ModuleID = apply("cinnamon-chmetrics3", cross = false)
   val cinnamonCHMetrics3JvmMetrics: ModuleID = apply("cinnamon-chmetrics3-jvm-metrics", cross = false)
@@ -43,6 +46,8 @@ object CinnamonLibrary extends Dynamic {
   val cinnamonKafkaConsumerJmxImporter: ModuleID = apply("cinnamon-jmx-importer-kafka-consumer", cross = false)
   val cinnamonKafkaProducerJmxImporter: ModuleID = apply("cinnamon-jmx-importer-kafka-producer", cross = false)
   val cinnamonLagom: ModuleID = apply("cinnamon-lagom", cross = true)
+  val cinnamonLagomProjection: ModuleID = apply("cinnamon-lagom-projection", cross = true)
+  val cinnamonLagomProjectionSPI: ModuleID = apply("cinnamon-lagom-projection-spi", cross = false)
   val cinnamonNewRelic: ModuleID = apply("cinnamon-newrelic", cross = false)
   val cinnamonOpenTracing: ModuleID = apply("cinnamon-opentracing", cross = true)
   val cinnamonOpenTracingDatadog: ModuleID = apply("cinnamon-opentracing-datadog", cross = false)
@@ -66,6 +71,8 @@ object CinnamonLibrary extends Dynamic {
     cinnamonAgent,
     cinnamonAgentCommon,
     cinnamonAkka,
+    cinnamonAkkaCluster,
+    cinnamonAkkaClusterSPI,
     cinnamonAkkaHttp,
     cinnamonAkkaHttpSPI,
     cinnamonAkkaPersistence,
@@ -74,6 +81,7 @@ object CinnamonLibrary extends Dynamic {
     cinnamonAkkaStream,
     cinnamonAkkaStreamSPI,
     cinnamonAkkaTyped,
+    cinnamonAlpakkaKafkaSPI,
     cinnamonCHMetrics,
     cinnamonCHMetrics3,
     cinnamonCHMetrics3JvmMetrics,
@@ -96,6 +104,8 @@ object CinnamonLibrary extends Dynamic {
     cinnamonKafkaConsumerJmxImporter,
     cinnamonKafkaProducerJmxImporter,
     cinnamonLagom,
+    cinnamonLagomProjection,
+    cinnamonLagomProjectionSPI,
     cinnamonNewRelic,
     cinnamonOpenTracing,
     cinnamonOpenTracingDatadog,

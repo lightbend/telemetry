@@ -99,11 +99,11 @@ object Cinnamon extends AutoPlugin {
 
       val resolvers = fullResolvers.value
 
-      val lightbendMavenRepo = resolvers collect {
+      val lightbendMavenRepo = resolvers.collect {
         case repo: MavenRepository if isLightbendResolver(repo.root) => repo
       }
 
-      val lightbendAuthedMavenRepo = lightbendMavenRepo collect {
+      val lightbendAuthedMavenRepo = lightbendMavenRepo.collect {
         case repo: MavenRepository if isAuthedLightbendResolver(repo.root) => repo
       }
 

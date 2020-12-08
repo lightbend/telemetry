@@ -4,7 +4,7 @@ import sbt._
 
 object CinnamonLibrary extends Dynamic {
   val cinnamonOrganization: String = "com.lightbend.cinnamon"
-  val cinnamonVersion: String = "2.14.0"
+  val cinnamonVersion: String = "2.15.0"
 
   def apply(name: String, cross: Boolean = true): ModuleID = {
     cinnamonOrganization % name % cinnamonVersion cross SbtCrossVersion(cross)
@@ -19,6 +19,7 @@ object CinnamonLibrary extends Dynamic {
   val cinnamonAkkaHttpSPI: ModuleID = apply("cinnamon-akka-http-spi", cross = false)
   val cinnamonAkkaPersistence: ModuleID = apply("cinnamon-akka-persistence", cross = true)
   val cinnamonAkkaPersistenceSPI: ModuleID = apply("cinnamon-akka-persistence-spi", cross = false)
+  val cinnamonAkkaProjection: ModuleID = apply("cinnamon-akka-projection", cross = true)
   val cinnamonAkkaSPI: ModuleID = apply("cinnamon-akka-spi", cross = false)
   val cinnamonAkkaStream: ModuleID = apply("cinnamon-akka-stream", cross = true)
   val cinnamonAkkaStreamSPI: ModuleID = apply("cinnamon-akka-stream-spi", cross = false)
@@ -77,6 +78,7 @@ object CinnamonLibrary extends Dynamic {
     cinnamonAkkaHttpSPI,
     cinnamonAkkaPersistence,
     cinnamonAkkaPersistenceSPI,
+    cinnamonAkkaProjection,
     cinnamonAkkaSPI,
     cinnamonAkkaStream,
     cinnamonAkkaStreamSPI,

@@ -4,7 +4,7 @@ import sbt._
 
 object CinnamonLibrary extends Dynamic {
   val cinnamonOrganization: String = "com.lightbend.cinnamon"
-  val cinnamonVersion: String = "2.15.0"
+  val cinnamonVersion: String = "2.16.0-M1"
 
   def apply(name: String, cross: Boolean = true): ModuleID = {
     cinnamonOrganization % name % cinnamonVersion cross SbtCrossVersion(cross)
@@ -15,6 +15,7 @@ object CinnamonLibrary extends Dynamic {
   val cinnamonAkka: ModuleID = apply("cinnamon-akka", cross = true)
   val cinnamonAkkaCluster: ModuleID = apply("cinnamon-akka-cluster", cross = true)
   val cinnamonAkkaClusterSPI: ModuleID = apply("cinnamon-akka-cluster-spi", cross = false)
+  val cinnamonAkkaGrpc: ModuleID = apply("cinnamon-akka-grpc", cross = true)
   val cinnamonAkkaHttp: ModuleID = apply("cinnamon-akka-http", cross = true)
   val cinnamonAkkaHttpSPI: ModuleID = apply("cinnamon-akka-http-spi", cross = false)
   val cinnamonAkkaPersistence: ModuleID = apply("cinnamon-akka-persistence", cross = true)
@@ -74,6 +75,7 @@ object CinnamonLibrary extends Dynamic {
     cinnamonAkka,
     cinnamonAkkaCluster,
     cinnamonAkkaClusterSPI,
+    cinnamonAkkaGrpc,
     cinnamonAkkaHttp,
     cinnamonAkkaHttpSPI,
     cinnamonAkkaPersistence,
@@ -143,8 +145,4 @@ object CinnamonLibrary extends Dynamic {
       sys.error(s"Unknown cinnamon module: $name")
     }
   }
-}
-
-object CinnamonResolver {
-  val commercial = "commercial" at "https://repo.lightbend.com/commercial-releases"
 }

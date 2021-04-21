@@ -1,5 +1,5 @@
 /*
- * Copyright © 2015–2020 Lightbend, Inc. All rights reserved.
+ * Copyright © 2015–2021 Lightbend, Inc. All rights reserved.
  * No information contained herein may be reproduced or transmitted in any form
  * or by any means without the express written permission of Lightbend, Inc.
  */
@@ -72,7 +72,6 @@ object Cinnamon extends AutoPlugin {
   // The Cinnamon plugin object is auto-imported, allowing
   // `Cinnamon.library` to be used without extra imports.
   val library = CinnamonLibrary
-  val resolver = CinnamonResolver
 
   override def buildSettings = Seq(
     cinnamonMissingRepoWarningShown := new AtomicBoolean(false),

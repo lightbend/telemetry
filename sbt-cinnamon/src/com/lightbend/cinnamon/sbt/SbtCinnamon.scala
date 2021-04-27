@@ -72,7 +72,6 @@ object Cinnamon extends AutoPlugin {
   // The Cinnamon plugin object is auto-imported, allowing
   // `Cinnamon.library` to be used without extra imports.
   val library = CinnamonLibrary
-  val resolver = CinnamonResolver
 
   override def buildSettings = Seq(
     cinnamonMissingRepoWarningShown := new AtomicBoolean(false),

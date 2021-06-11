@@ -4,7 +4,7 @@ import sbt._
 
 object CinnamonLibrary extends Dynamic {
   val cinnamonOrganization: String = "com.lightbend.cinnamon"
-  val cinnamonVersion: String = "2.15.1"
+  val cinnamonVersion: String = "2.15.2"
 
   def apply(name: String, cross: Boolean = true): ModuleID = {
     cinnamonOrganization % name % cinnamonVersion cross SbtCrossVersion(cross)

@@ -4,7 +4,7 @@ import sbt._
 
 object CinnamonLibrary extends Dynamic {
   val cinnamonOrganization: String = "com.lightbend.cinnamon"
-  val cinnamonVersion: String = "2.16.0"
+  val cinnamonVersion: String = "2.16.1"
 
   def apply(name: String, cross: Boolean = true): ModuleID = {
     cinnamonOrganization % name % cinnamonVersion cross SbtCrossVersion(cross)
@@ -54,6 +54,7 @@ object CinnamonLibrary extends Dynamic {
   val cinnamonOpenTracing: ModuleID = apply("cinnamon-opentracing", cross = true)
   val cinnamonOpenTracingDatadog: ModuleID = apply("cinnamon-opentracing-datadog", cross = false)
   val cinnamonOpenTracingJaeger: ModuleID = apply("cinnamon-opentracing-jaeger", cross = false)
+  val cinnamonOpenTracingSPI: ModuleID = apply("cinnamon-opentracing-spi", cross = false)
   val cinnamonOpenTracingTracer: ModuleID = apply("cinnamon-opentracing-tracer", cross = false)
   val cinnamonOpenTracingZipkin: ModuleID = apply("cinnamon-opentracing-zipkin", cross = false)
   val cinnamonOpenTracingZipkinKafka: ModuleID = apply("cinnamon-opentracing-zipkin-kafka", cross = false)
@@ -114,6 +115,7 @@ object CinnamonLibrary extends Dynamic {
     cinnamonOpenTracing,
     cinnamonOpenTracingDatadog,
     cinnamonOpenTracingJaeger,
+    cinnamonOpenTracingSPI,
     cinnamonOpenTracingTracer,
     cinnamonOpenTracingZipkin,
     cinnamonOpenTracingZipkinKafka,

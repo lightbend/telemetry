@@ -4,7 +4,7 @@ import sbt._
 
 object CinnamonLibrary extends Dynamic {
   val cinnamonOrganization: String = "com.lightbend.cinnamon"
-  val cinnamonVersion: String = "2.17.3"
+  val cinnamonVersion: String = "2.19.0"
 
   def apply(name: String, cross: Boolean = true): ModuleID = {
     cinnamonOrganization % name % cinnamonVersion cross SbtCrossVersion(cross)
@@ -40,16 +40,12 @@ object CinnamonLibrary extends Dynamic {
   val cinnamonCoreJava: ModuleID = apply("cinnamon-core-java", cross = false)
   val cinnamonDatadog: ModuleID = apply("cinnamon-datadog", cross = false)
   val cinnamonDatadogSocket: ModuleID = apply("cinnamon-datadog-socket", cross = false)
-  val cinnamonHikariCPJmxImporter: ModuleID = apply("cinnamon-jmx-importer-hikaricp", cross = false)
   val cinnamonJava: ModuleID = apply("cinnamon-java", cross = false)
   val cinnamonJavaFutureSPI: ModuleID = apply("cinnamon-java-future-spi", cross = false)
   val cinnamonJmxImporter: ModuleID = apply("cinnamon-jmx-importer", cross = false)
   val cinnamonJvmMetricsProducer: ModuleID = apply("cinnamon-jvm-metrics-producer", cross = false)
   val cinnamonKafkaConsumerJmxImporter: ModuleID = apply("cinnamon-jmx-importer-kafka-consumer", cross = false)
   val cinnamonKafkaProducerJmxImporter: ModuleID = apply("cinnamon-jmx-importer-kafka-producer", cross = false)
-  val cinnamonLagom: ModuleID = apply("cinnamon-lagom", cross = true)
-  val cinnamonLagomProjection: ModuleID = apply("cinnamon-lagom-projection", cross = true)
-  val cinnamonLagomProjectionSPI: ModuleID = apply("cinnamon-lagom-projection-spi", cross = false)
   val cinnamonNewRelic: ModuleID = apply("cinnamon-newrelic", cross = false)
   val cinnamonOpenTracing: ModuleID = apply("cinnamon-opentracing", cross = true)
   val cinnamonOpenTracingDatadog: ModuleID = apply("cinnamon-opentracing-datadog", cross = false)
@@ -59,8 +55,6 @@ object CinnamonLibrary extends Dynamic {
   val cinnamonOpenTracingZipkin: ModuleID = apply("cinnamon-opentracing-zipkin", cross = false)
   val cinnamonOpenTracingZipkinKafka: ModuleID = apply("cinnamon-opentracing-zipkin-kafka", cross = false)
   val cinnamonOpenTracingZipkinScribe: ModuleID = apply("cinnamon-opentracing-zipkin-scribe", cross = false)
-  val cinnamonPlay: ModuleID = apply("cinnamon-play", cross = true)
-  val cinnamonPlaySPI: ModuleID = apply("cinnamon-play-spi", cross = false)
   val cinnamonPrometheus: ModuleID = apply("cinnamon-prometheus", cross = false)
   val cinnamonPrometheusHttpServer: ModuleID = apply("cinnamon-prometheus-httpserver", cross = false)
   val cinnamonScala: ModuleID = apply("cinnamon-scala", cross = true)
@@ -101,16 +95,12 @@ object CinnamonLibrary extends Dynamic {
     cinnamonCoreJava,
     cinnamonDatadog,
     cinnamonDatadogSocket,
-    cinnamonHikariCPJmxImporter,
     cinnamonJava,
     cinnamonJavaFutureSPI,
     cinnamonJmxImporter,
     cinnamonJvmMetricsProducer,
     cinnamonKafkaConsumerJmxImporter,
     cinnamonKafkaProducerJmxImporter,
-    cinnamonLagom,
-    cinnamonLagomProjection,
-    cinnamonLagomProjectionSPI,
     cinnamonNewRelic,
     cinnamonOpenTracing,
     cinnamonOpenTracingDatadog,
@@ -120,8 +110,6 @@ object CinnamonLibrary extends Dynamic {
     cinnamonOpenTracingZipkin,
     cinnamonOpenTracingZipkinKafka,
     cinnamonOpenTracingZipkinScribe,
-    cinnamonPlay,
-    cinnamonPlaySPI,
     cinnamonPrometheus,
     cinnamonPrometheusHttpServer,
     cinnamonScala,

@@ -4,7 +4,7 @@ import sbt._
 
 object CinnamonLibrary extends Dynamic {
   val cinnamonOrganization: String = "com.lightbend.cinnamon"
-  val cinnamonVersion: String = "2.20.0"
+  val cinnamonVersion: String = "2.20.1"
 
   def apply(name: String, cross: Boolean = true): ModuleID = {
     cinnamonOrganization % name % cinnamonVersion cross SbtCrossVersion(cross)
@@ -49,6 +49,8 @@ object CinnamonLibrary extends Dynamic {
   val cinnamonKafkaProducerJmxImporter: ModuleID = apply("cinnamon-jmx-importer-kafka-producer", cross = false)
   val cinnamonNewRelic: ModuleID = apply("cinnamon-newrelic", cross = false)
   val cinnamonOpenTelemetry: ModuleID = apply("cinnamon-opentelemetry", cross = false)
+  val cinnamonOpenTelemetryLog4jAppender: ModuleID = apply("cinnamon-opentelemetry-log4j-appender", cross = false)
+  val cinnamonOpenTelemetryLogbackAppender: ModuleID = apply("cinnamon-opentelemetry-logback-appender", cross = false)
   val cinnamonOpenTracing: ModuleID = apply("cinnamon-opentracing", cross = true)
   val cinnamonOpenTracingDatadog: ModuleID = apply("cinnamon-opentracing-datadog", cross = false)
   val cinnamonOpenTracingJaeger: ModuleID = apply("cinnamon-opentracing-jaeger", cross = false)
@@ -106,6 +108,8 @@ object CinnamonLibrary extends Dynamic {
     cinnamonKafkaProducerJmxImporter,
     cinnamonNewRelic,
     cinnamonOpenTelemetry,
+    cinnamonOpenTelemetryLog4jAppender,
+    cinnamonOpenTelemetryLogbackAppender,
     cinnamonOpenTracing,
     cinnamonOpenTracingDatadog,
     cinnamonOpenTracingJaeger,

@@ -120,7 +120,7 @@ object Cinnamon extends AutoPlugin {
         warnBanner(
           "Lightbend commercial resolver is missing.",
           "",
-          "Please refer to the Lightbend Telemetry migration guide for details:",
+          "Please refer to the Akka Insights migration guide for details:",
           "  https://developer.lightbend.com/docs/telemetry/2.14.x/project/migration.html"
         )
       }
@@ -130,7 +130,7 @@ object Cinnamon extends AutoPlugin {
         warnBanner(
           "Lightbend commercial resolver does not use new URL-based credential mechanism.",
           "",
-          "Please refer to the Lightbend Telemetry migration guide for details:",
+          "Please refer to the Akka Insights migration guide for details:",
           "  https://developer.lightbend.com/docs/telemetry/2.14.x/project/migration.html"
         )
       }
